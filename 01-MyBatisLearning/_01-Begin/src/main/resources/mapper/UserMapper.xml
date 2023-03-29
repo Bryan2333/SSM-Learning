@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    一个表对应一个mapper文件
+
+    此UserMapper.xml写的是用户表相关的sql语句
+
+    mapper中的一条sql和接口中的一个方法对应
+    sql的id = 接口中的方法名
+-->
+<mapper namespace="com.bryan.dao.UserMapper">
+    <!--  新增一条用户数据  -->
+    <insert id="insertUser">
+        INSERT INTO tb_user
+        VALUES (NULL, '张三', 'zf', 3000, NULL)
+    </insert>
+
+    <!-- 修改id为1的用户的余额，将其改为2000  -->
+    <update id="updateUserById">
+        UPDATE tb_user
+        SET account = 2000
+        WHERE id = 1
+    </update>
+
+    <!--  删除id为3的用户  -->
+    <delete id="deleteUserById">
+        DELETE
+        FROM tb_user
+        WHERE id = 3
+    </delete>
+
+    <!--  查询id为1的用户信息
+        select 需要添加属性 resultType表明返回表记录的类型
+    -->
+    <select id="selectUserById" resultType="User">
+        SELECT *
+        FROM tb_user
+        WHERE id = 1
+    </select>
+
+    <!--  查询所有用户 -->
+    <select id="selectAllUser" resultType="User">
+        SELECT *
+        FROM tb_user
+    </select>
+</mapper>

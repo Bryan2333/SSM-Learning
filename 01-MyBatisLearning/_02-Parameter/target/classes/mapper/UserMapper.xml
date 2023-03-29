@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bryan2.dao.UserMapper">
+    <!-- 按照 id 查询指定用户的信息  -->
+    <!-- 如果是一个参数，随意取值
+        通过 #{} 进行取值，通过 key 获得对应的 value 值
+    -->
+    <select id="selectUserById" resultType="User">
+        SELECT *
+        FROM tb_user
+        WHERE id = #{id}
+    </select>
+
+    <!--  验证用户名和密码  -->
+    <select id="selectUserByUsernameAndPasswd" resultType="User">
+        SELECT *
+        FROM tb_user
+        WHERE username = #{username}
+        AND password = #{passwd}
+    </select>
+
+    <!--  添加一条用户记录 int insertUser(Map<String, String> map);  -->
+    <insert id="insertUserByMap">
+        INSERT INTO tb_user
+        VALUES (NULL, #{username}, #{password}, #{account}, #{permission})
+    </insert>
+
+    <!--
+        修改用户信息
+        需要使用 parameterType 属性指定实体类对象的类名
+        key值需要对应实体类对象的属性
+    -->
+    <update id="updateUserByClass" parameterType="User">
+        UPDATE tb_user
+        SET password = #{password},
+        account = #{account},
+        permission = #{permission}
+        WHERE username = #{username}
+    </update>
+</mapper>
