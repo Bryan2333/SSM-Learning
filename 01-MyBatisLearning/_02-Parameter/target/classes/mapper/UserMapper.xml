@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bryan2.dao.UserMapper">
     <!-- 按照 id 查询指定用户的信息  -->
@@ -10,15 +10,15 @@
     <select id="selectUserById" resultType="User">
         SELECT *
         FROM tb_user
-        WHERE id = #{id}
+        WHERE `id` = #{id}
     </select>
 
     <!--  验证用户名和密码  -->
     <select id="selectUserByUsernameAndPasswd" resultType="User">
         SELECT *
         FROM tb_user
-        WHERE username = #{username}
-        AND password = #{passwd}
+        WHERE `username` = #{username}
+          AND `password` = #{passwd}
     </select>
 
     <!--  添加一条用户记录 int insertUser(Map<String, String> map);  -->
@@ -32,11 +32,24 @@
         需要使用 parameterType 属性指定实体类对象的类名
         key值需要对应实体类对象的属性
     -->
-    <update id="updateUserByClass" parameterType="User">
+    <update id="updateUserByPassingInstance" parameterType="User">
         UPDATE tb_user
-        SET password = #{password},
-        account = #{account},
-        permission = #{permission}
-        WHERE username = #{username}
+        SET `password`   = #{password},
+            `account`    = #{account},
+            `permission` = #{permission}
+        WHERE `username` = #{username}
     </update>
+
+    <!-- 查询用户数量 -->
+    <select id="selectCount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM tb_user
+    </select>
+
+    <!--  模糊查询姓张的用户  -->
+    <select id="selectUserByName" resultType="User">
+        SELECT *
+        FROM tb_user
+        WHERE username LIKE '%${username}%'
+    </select>
 </mapper>

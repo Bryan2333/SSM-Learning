@@ -1,13 +1,13 @@
 package com.bryan2.pojo;
 
 public class User {
-    private int id;
+    private Integer id;
     private String username;
     private String password;
     private double account;
     private String permission;
 
-    public User(int id, String username, String password, double account, String permission) {
+    public User(Integer id, String username, String password, double account, String permission) {
         this.id = id;
         this.username = username;
         this.password = password;

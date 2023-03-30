@@ -32,11 +32,26 @@
         需要使用 parameterType 属性指定实体类对象的类名
         key值需要对应实体类对象的属性
     -->
-    <update id="updateUserByClass" parameterType="User">
+    <update id="updateUserByPassingInstance" parameterType="User">
         UPDATE tb_user
         SET `password`   = #{password},
             `account`    = #{account},
             `permission` = #{permission}
         WHERE `username` = #{username}
     </update>
+
+    <!-- 查询用户数量 -->
+    <select id="selectCount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM tb_user
+    </select>
+
+    <!--  模糊查询姓张的用户
+        因为 #{} 会自动为字符串或日期添加单引号，导致SQL语法错误，因此这里使用 ${} 手动添加引号处理
+     -->
+    <select id="selectUserByName" resultType="User">
+        SELECT *
+        FROM tb_user
+        WHERE username LIKE '${username}%'
+    </select>
 </mapper>

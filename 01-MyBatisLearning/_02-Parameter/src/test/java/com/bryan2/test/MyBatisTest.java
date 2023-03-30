@@ -63,10 +63,10 @@ public class MyBatisTest {
         SqlSession sessionSql = SqlSessionUtil.getSessionSql("mybatis-config.xml");
         UserMapper mapper = sessionSql.getMapper(UserMapper.class);
 
-        User user = new User(0, "测试用户",
+        User user = new User(null, "测试用户",
                 "3777", 2023, "sys:emp:select");
 
-        int row = mapper.updateUserByClass(user);
+        int row = mapper.updateUserByPassingInstance(user);
 
         System.out.println(row == 1 ? "修改用户信息成功" : "修改用户信息失败");
 
