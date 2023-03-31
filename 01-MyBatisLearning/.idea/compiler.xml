@@ -10,9 +10,5 @@
         <module name="_02-Parameter" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="_01-Begin" target="17" />
-      <module name="_02-Parameter" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>

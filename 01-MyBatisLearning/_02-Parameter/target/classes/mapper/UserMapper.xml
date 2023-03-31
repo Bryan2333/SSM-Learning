@@ -46,10 +46,12 @@
         FROM tb_user
     </select>
 
-    <!--  模糊查询姓张的用户  -->
+    <!--  模糊查询姓张的用户
+        因为 #{} 会自动为字符串或日期添加单引号，导致SQL语法错误，因此这里使用 ${} 手动添加引号处理
+     -->
     <select id="selectUserByName" resultType="User">
         SELECT *
         FROM tb_user
-        WHERE username LIKE '%${username}%'
+        WHERE username LIKE '${username}%'
     </select>
 </mapper>
