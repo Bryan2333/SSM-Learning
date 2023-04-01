@@ -5,7 +5,11 @@
       <driver-ref>mariadb</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+<<<<<<< Updated upstream
       <jdbc-url>jdbc:mariadb://127.0.0.1:3306/shenmu</jdbc-url>
+=======
+      <jdbc-url>jdbc:mariadb:///shenmu?localSocket=/run/mysqld/mysqld.sock</jdbc-url>
+>>>>>>> Stashed changes
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
