@@ -86,4 +86,25 @@ public interface UserMapper {
     *   WHERE username LIKE '${username}%'
     */
     List<User> selectUserByName(@Param("username") String username);
+
+    /*
+    *   动态显示列
+    *
+    *   SQL语句：
+    *
+    *   SELECT ${cols}
+    *   FROM tb_user;
+    *
+    */
+    List<User> selectUserByCols(@Param("cols") String cols);
+
+    /*
+    *   获得主键自增的数据
+    *
+    *   SQL语句：
+    *
+    *   INSERT INTO tb_user
+    *    VALUES (NULL, #{username}, #{password}, #{account}, #{permission})
+    */
+    int insertByUserIns(User user);
 }

@@ -54,4 +54,24 @@
         FROM tb_user
         WHERE username LIKE '${username}%'
     </select>
+
+    <!--
+        动态显示列名
+        因为列名是字符串，如果使用 #{} 占位符，会自动补上双引号
+        而列名是不能加上双引号的，所以这里使用 ${} 占位符
+     -->
+    <select id="selectUserByCols" resultType="User">
+        SELECT ${cols}
+        FROM tb_user;
+    </select>
+
+    <!--
+        获取添加数据后自增的主键值
+        useGeneratedKeys=true 表示需要用到插入的数据的主键值
+        keyProperty="id" 表示用哪个属性来接受主键值
+    -->
+    <insert id="insertByUserIns" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tb_user
+        VALUES (NULL, #{username}, #{password}, #{account}, #{permission})
+    </insert>
 </mapper>
