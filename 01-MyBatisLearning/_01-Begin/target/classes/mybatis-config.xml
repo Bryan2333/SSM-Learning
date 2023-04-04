@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!-- MyBatis核心配置文件 -->
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <!--  将 jdbc 相关配置参数抽离到 jdbc.properties  -->
+    <!--  将 jdbc 相关配置参数抽离到 jdbc.properties  提高复用性 -->
     <properties resource="jdbc.properties"/>
 
     <!--  配置类型别名  -->
@@ -17,8 +18,7 @@
     </typeAliases>
 
     <!-- 可以有多个 environment 但是只能使用其中一个环境
-        通过 environments 的 default 标签来指定
-    -->
+        通过 environments 的 default 标签来指定 -->
     <environments default="development">
         <environment id="development">
             <!-- JDBC表示使用原生的JDBC管理数据，需要手动管理事务 -->
@@ -31,6 +31,7 @@
             </dataSource>
         </environment>
     </environments>
+    <!--  配置 mapper 文件地址  -->
     <mappers>
         <mapper resource="mapper/UserMapper.xml"/>
     </mappers>

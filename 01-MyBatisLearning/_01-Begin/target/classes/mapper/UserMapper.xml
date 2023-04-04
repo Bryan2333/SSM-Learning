@@ -13,28 +13,36 @@
 <mapper namespace="com.bryan.dao.UserMapper">
     <!--  新增一条用户数据  -->
     <insert id="insertUser">
-        insert into tb_user values (null, '张三', 'zf', 3000, null)
+        INSERT INTO tb_user
+        VALUES (NULL, '张三', 'zf', 3000, NULL)
     </insert>
 
     <!-- 修改id为1的用户的余额，将其改为2000  -->
     <update id="updateUserById">
-        update tb_user set account = 2000 where id = 1
+        UPDATE tb_user
+        SET account = 2000
+        WHERE id = 1
     </update>
 
     <!--  删除id为3的用户  -->
     <delete id="deleteUserById">
-        delete from tb_user where id = 3
+        DELETE
+        FROM tb_user
+        WHERE id = 3
     </delete>
 
     <!--  查询id为1的用户信息
         select 需要添加属性 resultType表明返回表记录的类型
     -->
     <select id="selectUserById" resultType="User">
-        select * from tb_user where id = 1
+        SELECT *
+        FROM tb_user
+        WHERE id = 1
     </select>
 
     <!--  查询所有用户 -->
     <select id="selectAllUser" resultType="User">
-        select * from tb_user
+        SELECT *
+        FROM tb_user
     </select>
 </mapper>
