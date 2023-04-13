@@ -9,14 +9,18 @@ public class Emp {
 
     private Double salary; // 员工薪资
 
+    // 一个员工只对应一个部门，即对一关系，添加对应类型的属性即可
+    private Dept dept;
+
     public Emp() {}
 
-    public Emp(Integer eid, String empName, Integer age, String job, Double salary) {
+    public Emp(Integer eid, String empName, Integer age, String job, Double salary, Dept dept) {
         this.eid = eid;
         this.empName = empName;
         this.age = age;
         this.job = job;
         this.salary = salary;
+        this.dept = dept;
     }
 
     public Integer getEid() {
@@ -59,14 +63,17 @@ public class Emp {
         this.salary = salary;
     }
 
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
+
     @Override
     public String toString() {
-        return "Emp {" +
-                "eid=" + eid +
-                ", empName='" + empName + '\'' +
-                ", age=" + age +
-                ", job='" + job + '\'' +
-                ", salary=" + salary +
-                '}';
+        return "{eid=%s, empName=%s, age=%s, job=%s, salary=%s, dept={%s}}".formatted
+                (eid, empName, age, job, salary, dept);
     }
 }

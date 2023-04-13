@@ -5,6 +5,15 @@
 <configuration>
     <properties resource="jdbc.properties"/>
 
+    <settings>
+        <!-- 开启驼峰规则映射 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 开启延迟加载，实现按需查询 全局开启
+             可以在 association 标签中使用 fetchType属性来单独配置 lazy则保持延迟加载 eager则不延迟加载
+        -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+    </settings>
+
     <typeAliases>
         <package name="com.bryan2.pojo"/>
     </typeAliases>

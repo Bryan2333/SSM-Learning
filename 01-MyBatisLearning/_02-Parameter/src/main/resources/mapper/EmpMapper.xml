@@ -7,4 +7,83 @@
         SELECT *
         FROM emp;
     </select>
+
+    <!-- 查询所有员工信息 (开启驼峰命名映射) -->
+    <select id="selectAllEmpCamel" resultType="Emp">
+        SELECT *
+        FROM emp;
+    </select>
+
+    <!-- 查询所有员工信息 (开启ResultMap映射) -->
+    <!--
+        ResultType: 设置默认的映射规则
+        ResultMap: 设置自定义的映射规则
+    -->
+    <select id="selectAllEmpMap" resultMap="selectAllEmpRM">
+        SELECT *
+        FROM emp;
+    </select>
+    <!-- type属性值: 要处理的类型，即最终的封装类型 -->
+    <resultMap id="selectAllEmpRM" type="Emp">
+        <!-- 主键字段使用id标签 -->
+        <id column="eid" property="eid"/>
+        <!-- 如果封装类型的属性和表字段一致，则可以自动映射，不需要手动配置-->
+        <!-- 普通字段使用result标签-->
+        <id column="emp_name" property="empName"/>
+    </resultMap>
+
+    <!-- 根据id查询员工信息及其所在部门名 (使用级联属性赋值) -->
+    <select id="selectEmpAndDeptByEid" resultMap="selectEmpAndDeptByEidRM">
+        SELECT *
+        FROM emp
+                 LEFT JOIN dept ON emp.dept_id = dept.id
+        WHERE eid = #{eid};
+    </select>
+    <resultMap type="Emp" id="selectEmpAndDeptByEidRM">
+        <!-- 1. 通过[级联属性赋值]处理多对一 -->
+        <result column="id" property="dept.deptId"/>
+        <result column="dept_name" property="dept.deptName"/>
+    </resultMap>
+
+    <!-- 根据id查询员工信息及其所在部门名 (使用association标签赋值) -->
+    <select id="selectEmpAndDeptByEidAssociation" resultMap="selectEmpAndDeptByEidAssociationRM">
+        SELECT *
+        FROM emp
+                 LEFT JOIN dept ON emp.dept_id = dept.id
+        WHERE eid = #{eid};
+    </select>
+    <resultMap id="selectEmpAndDeptByEidAssociationRM" type="Emp">
+        <!-- 2. 通过association处理多对一
+               即是可以自动映射的字段，也需要手动指定
+        -->
+        <id column="eid" property="eid"/>
+        <result column="emp_name" property="empName"/>
+        <result column="age" property="age"/>
+        <result column="job" property="job"/>
+        <result column="salary" property="salary"/>
+        <association property="dept" javaType="Dept">
+            <result column="id" property="deptId"/>
+            <result column="dept_name" property="deptName"/>
+        </association>
+    </resultMap>
+
+    <!-- 根据id查询员工信息及其所在部门名 (分步查询) -->
+    <select id="selectEmpAndDeptByEidByStep" resultMap="selectEmpAndDeptByEidByStepRM">
+        SELECT *
+        FROM emp
+        WHERE eid = #{eid};
+    </select>
+    <resultMap id="selectEmpAndDeptByEidByStepRM" type="Emp">
+        <id column="eid" property="eid"/>
+        <result column="emp_name" property="empName"/>
+        <result column="age" property="age"/>
+        <result column="job" property="job"/>
+        <result column="salary" property="salary"/>
+        <!--
+            用 select * from dept where id = 1; 去执行第二句SQL语句
+            将第一条SQL语句返回字段中的 dept_id 字段传给 selectDeptById
+            将返回结果封装属性dept
+        -->
+        <association property="dept" column="dept_id" select="com.bryan2.dao.DeptMapper.selectDeptById"/>
+    </resultMap>
 </mapper>
