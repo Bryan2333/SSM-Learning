@@ -5,5 +5,7 @@
     <file url="file://$PROJECT_DIR$/_01-Begin/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/_02-Parameter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/_02-Parameter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/_03-DynamicSQL/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/_03-DynamicSQL/src/main/resources" charset="UTF-8" />
   </component>
 </project>

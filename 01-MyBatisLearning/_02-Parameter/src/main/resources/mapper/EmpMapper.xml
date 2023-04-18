@@ -86,4 +86,11 @@
         -->
         <association property="dept" column="dept_id" select="com.bryan2.dao.DeptMapper.selectDeptById"/>
     </resultMap>
+
+    <!-- 通过部门id查询员工共信息 -->
+    <select id="selectDeptAndEmployeesByStepTwo" resultType="emp">
+        select *
+        from emp
+        WHERE dept_id = #{deptId};
+    </select>
 </mapper>

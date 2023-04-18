@@ -12,4 +12,38 @@
         <id column="id" property="deptId"/>
         <result column="dept_name" property="deptName"/>
     </resultMap>
+
+    <!-- 查询指定部门的所有员工 -->
+    <select id="selectDeptAndEmployeesById" resultMap="selectDeptAndEmployeesByIdRM">
+        SELECT *
+        FROM dept
+                 LEFT JOIN emp ON dept.id = emp.dept_id
+        WHERE id = #{id};
+    </select>
+    <resultMap id="selectDeptAndEmployeesByIdRM" type="Dept">
+        <id column="id" property="deptId"/>
+        <result column="dept_name" property="deptName"/>
+        <!-- 对多关系(集合)使用 collection标签 -->
+        <collection property="employees" ofType="Emp">
+            <result column="eid" property="eid"/>
+            <result column="emp_name" property="empName"/>
+            <result column="age" property="age"/>
+            <result column="job" property="job"/>
+            <result column="salary" property="salary"/>
+        </collection>
+    </resultMap>
+
+    <!-- 根据部门id查询部门信息 -->
+    <select id="selectDeptAndEmployeesByStepOne" resultMap="selectDeptAndEmployeesByStepOneRM">
+        SELECT *
+        FROM dept
+        WHERE id = #{id};
+    </select>
+    <resultMap id="selectDeptAndEmployeesByStepOneRM" type="Dept">
+        <id column="id" property="deptId"/>
+        <result column="dept_name" property="deptName"/>
+        <!-- 使用id字段去查询该部门的所有员工 -->
+        <collection property="employees" column="id"
+                    select="com.bryan2.dao.EmpMapper.selectDeptAndEmployeesByStepTwo"/>
+    </resultMap>
 </mapper>

@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="_01-Begin" />
         <module name="_02-Parameter" />
+        <module name="_03-DynamicSQL" />
       </profile>
     </annotationProcessing>
   </component>

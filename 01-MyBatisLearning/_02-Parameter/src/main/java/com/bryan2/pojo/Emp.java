@@ -76,4 +76,9 @@ public class Emp {
         return "{eid=%s, empName=%s, age=%s, job=%s, salary=%s, dept={%s}}".formatted
                 (eid, empName, age, job, salary, dept);
     }
+
+    public String info() {
+        return "{eid=%s, empName=%s, age=%s, job=%s, salary=%s}".formatted
+                (eid, empName, age, job, salary);
+    }
 }

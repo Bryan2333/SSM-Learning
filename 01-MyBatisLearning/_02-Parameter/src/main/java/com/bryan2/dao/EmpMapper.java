@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@SuppressWarnings("all")
 public interface EmpMapper {
     /*
      *   查询所有员工的信息
@@ -70,4 +71,9 @@ public interface EmpMapper {
     *
     */
     Emp selectEmpAndDeptByEidByStep(@Param("eid") int eid);
+
+    /*
+    *   通过部门id查询该部门下的所有员工共
+    */
+    List<Emp> selectDeptAndEmployeesByStepTwo(@Param("deptId") int deptId);
 }

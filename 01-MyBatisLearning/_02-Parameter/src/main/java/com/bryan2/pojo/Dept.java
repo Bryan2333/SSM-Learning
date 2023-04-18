@@ -16,6 +16,12 @@ public class Dept {
         this.deptName = deptName;
     }
 
+    public Dept(Integer deptId, String deptName, List<Emp> employees) {
+        this.deptId = deptId;
+        this.deptName = deptName;
+        this.employees = employees;
+    }
+
     public Integer getDeptId() {
         return deptId;
     }
@@ -32,7 +38,15 @@ public class Dept {
         this.deptName = deptName;
     }
 
+    public List<Emp> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Emp> employees) {
+        this.employees = employees;
+    }
+
     public String toString() {
-        return "deptId=%s, deptName=%s".formatted(deptId, deptName);
+        return "deptId=%s, deptName=%s, employees=%s".formatted(deptId, deptName, employees);
     }
 }
