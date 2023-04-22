@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bryan3.dao.EmpMapper">
+    <!--二级缓存需要添加cache标签-->
+    <cache/>
+
+    <!-- 查询所有员工信息 -->
+    <select id="selectAllEmployees" resultType="Emp">
+        SELECT *
+        FROM emp;
+    </select>
+
+    <!-- 查询工资在min和max之间的员工 -->
+    <select id="selectEmployeesBySal" resultType="Emp">
+        SELECT *
+        FROM emp
+        WHERE 1 = 1
+        <!-- test属性指定要判断的条件表达式，表达式结果为true，if标签内的sql语句才生效，否则不生效 -->
+        <if test="minSal != null and minSal != ''">
+            AND salary <![CDATA[>]]> #{minSal}
+        </if>
+        <if test="maxSal != null and maxSal != ''">
+            AND salary <![CDATA[<]]> #{maxSal}
+        </if>
+    </select>
+
+    <!-- 查询工资在min和max之间的员工 附加where标签 -->
+    <select id="selectEmployeesBySalWhere" resultType="Emp">
+        SELECT *
+        FROM emp
+        <!-- where标签可以将缺少的where关键字补全
+             还可以将多余的and/or关键词去掉 (只能去掉判断条件的前面的and/or) -->
+        <where>
+            <if test="minSal != null and minSal != ''">
+                salary <![CDATA[>]]> #{minSal}
+            </if>
+            <if test="maxSal != null and maxSal != ''">
+                AND salary <![CDATA[<]]> #{minSal}
+            </if>
+        </where>
+    </select>
+
+    <!-- 查询工资在min和max之间的员工 附加trim标签 -->
+    <select id="selectEmployeesBySalTrim" resultType="Emp">
+        SELECT *
+        FROM emp
+        <!--
+            prefix: 在trim标签前添加指定内容
+            suffix: 在trim标签后添加指定内容
+            prefixOverrides: 在trim标签前去掉指定内容，用 | 表示获
+            suffixOverrides: 在trim标签后去掉指定内容
+         -->
+        <trim prefix="where" suffixOverrides="and|or">
+            <if test="minSal != null and minSal != ''">
+                salary <![CDATA[>]]> #{minSal} and
+            </if>
+            <if test="maxSal != null and maxSal != ''">
+                salary <![CDATA[<]]> #{maxSal}
+            </if>
+        </trim>
+    </select>
+
+    <select id="selectEmployeesBySalChoose" resultType="Emp">
+        SELECT *
+        FROM emp
+        WHERE
+        <!-- choose类似于if
+            when类似于else-if，可以有多个，但只有其中一个判断会生效
+            otherwise类似于else，只能有一个
+         -->
+        <choose>
+            <when test="minSal != null and minSal != ''">
+                salary <![CDATA[>]]> #{minSal}
+            </when>
+            <when test="maxSal != null and maxSal != ''">
+                salary <![CDATA[<]]> #{maxSal}
+            </when>
+            <otherwise>
+                salary <![CDATA[>]]> 1000
+            </otherwise>
+        </choose>
+    </select>
+
+    <delete id="deleteEmployeesBatch">
+        DELETE FROM emp WHERE eid IN
+        <!--
+            collection属性：设置需要遍历的数组或集合
+            item属性：表示数组或集合的每一个元素
+            separator属性：循环体之间的分隔符
+            open属性：foreach标签所循环的所有内容的[开始符]
+            close属性：foreach标签所循环的所有内容的[结束符]
+         -->
+        <foreach collection="eids" item="eid" separator="," open="(" close=")">
+            #{eid}
+        </foreach>
+    </delete>
+
+    <!-- 批量添加员工信息 -->
+    <insert id="insertEmployeesBatch">
+        INSERT INTO emp
+        VALUES
+        <foreach collection="employees" item="emp" separator=",">
+            (null, #{emp.empName}, #{emp.age}, #{emp.job}, #{emp.salary}, #{emp.deptId})
+        </foreach>
+    </insert>
+
+    <!-- SQL片段复用 -->
+    <sql id="empColNames">
+        eid, emp_name, age, job, salary, dept_id
+    </sql>
+
+    <select id="selectEmpById" resultType="Emp">
+        SELECT <include refid="empColNames"/>
+        FROM emp
+        WHERE eid = #{eid}
+    </select>
+</mapper>
