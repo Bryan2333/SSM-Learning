@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bryan3.dao.EmpMapper">
-    <!--二级缓存需要添加cache标签-->
+    <!-- 二级缓存需要添加cache标签 -->
     <cache/>
 
     <!-- 查询所有员工信息 -->

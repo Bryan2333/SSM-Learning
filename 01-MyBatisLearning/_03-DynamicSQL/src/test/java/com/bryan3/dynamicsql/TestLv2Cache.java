@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 
-@SuppressWarnings("all")
 public class TestLv2Cache {
     // 二级缓存：SqlSessionFactory级别
     // 1. 需要手动开启

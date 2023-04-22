@@ -6,7 +6,6 @@ import com.bryan3.util.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("all")
 public class TestLv1Cache {
     // 一级缓存默认开启，SqlSession级别
     // 生效条件：1.同一个SqlSession对象 2.同一条SQL语句 3. 查询之间，不能有更新、清空缓存操作
