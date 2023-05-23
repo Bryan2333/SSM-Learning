@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/02-SpringMVCLearning.iml" filepath="$PROJECT_DIR$/.idea/02-SpringMVCLearning.iml" />
       <module fileurl="file://$PROJECT_DIR$/_01-fiveone.iml" filepath="$PROJECT_DIR$/_01-fiveone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_02-IoCDemo/_02-IoCDemo.iml" filepath="$PROJECT_DIR$/_02-IoCDemo/_02-IoCDemo.iml" />
     </modules>
   </component>
 </project>
